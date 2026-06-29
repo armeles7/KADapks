@@ -417,7 +417,7 @@ body.dark .hero-card__inner {
 }
 
 .site-footer {
-  padding: 2rem 0 2.6rem;
+  padding: 2rem 0;
   border-top: 1px solid var(--border);
 }
 
@@ -426,12 +426,36 @@ body.dark .hero-card__inner {
   justify-content: space-between;
   gap: 1rem;
   align-items: center;
+  padding-bottom: 2rem;
 }
 
 .footer-links {
   display: flex;
   gap: 1rem;
   color: var(--muted);
+}
+
+.footer-copyright {
+  text-align: center;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+  opacity: 0.85;
+  color: var(--muted);
+}
+
+.footer-copyright p {
+  margin: 0;
+}
+
+.footer-copyright a {
+  color: var(--accent);
+  transition: opacity 0.2s ease;
+}
+
+.footer-copyright a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
 }
 
 .download-toast {
@@ -485,5 +509,9 @@ body.dark .hero-card__inner {
 
   .hero {
     padding-top: 3.5rem;
+  }
+
+  .footer-copyright {
+    font-size: 0.85rem;
   }
 }
