@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="KADapks : distribution d'applications Android africaines et innovantes"
+    />
+    <title>KADapks | Distribution d'applications Android</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-row">
+        <a href="#top" class="brand" aria-label="Retour à l'accueil KADapks">
+          <span class="brand-mark">K</span>
+          <span class="brand-text">KADapks</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Navigation principale">
+          <a href="#apps">Applications</a>
+          <a href="#about">À propos</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Activer le mode sombre">
+          🌙 Mode sombre
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Distribution APK • Mobile • Afrique</p>
+            <h1>Découvrez des applis Android modernes, utiles et accessibles.</h1>
+            <p class="hero-text">
+              KADapks met à disposition des applications conçues pour le quotidien, la culture,
+              le divertissement et les nouvelles expériences numériques.
+            </p>
+            <div class="hero-actions">
+              <a href="#apps" class="btn btn-primary">Voir les applications</a>
+              <a href="#about" class="btn btn-secondary">En savoir plus</a>
+            </div>
+            <div class="hero-stats" aria-live="polite">
+              <div>
+                <strong id="download-count">0</strong>
+                <span>Téléchargements suivis</span>
+              </div>
+              <div>
+                <strong>3</strong>
+                <span>Apps disponibles</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-card" aria-hidden="true">
+            <div class="hero-card__inner">
+              <div class="hero-icon">📲</div>
+              <h2>Installations rapides</h2>
+              <p>Des APK simples à installer, optimisées pour une expérience fluide.</p>
+              <ul>
+                <li>Compatibilité Android</li>
+                <li>Design moderne</li>
+                <li>Mises à jour régulières</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="apps" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Galerie</p>
+            <h2>Nos applications à télécharger</h2>
+            <p>
+              Chaque app a été pensée pour offrir une expérience intuitive, rapide et adaptée à
+              vos besoins.
+            </p>
+          </div>
+
+          <div class="app-grid">
+            <article class="app-card kozons">
+              <div class="app-visual">
+                <img src="images/kozons-app.svg" alt="Illustration de l’application KoZons" />
+              </div>
+              <div class="app-body">
+                <div class="app-topline">
+                  <h3>KoZons</h3>
+                  <span class="version-badge">v1.0.0</span>
+                </div>
+                <p>
+                  App sociale pan-africaine — <strong>“on parle, on écoute, on kiffe”</strong>.
+                </p>
+                <ul class="feature-list">
+                  <li>Feed social</li>
+                  <li>Réactions instantanées</li>
+                  <li>Messages temps réel</li>
+                  <li>Stories et notifications</li>
+                </ul>
+                <a
+                  href="https://example.com/kozons.apk"
+                  class="download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-download="KoZons"
+                >
+                  Télécharger APK
+                </a>
+              </div>
+            </article>
+
+            <article class="app-card melo">
+              <div class="app-visual">
+                <img src="images/melo-tv.svg" alt="Illustration de l’application Melo TV+" />
+              </div>
+              <div class="app-body">
+                <div class="app-topline">
+                  <h3>Melo TV+</h3>
+                  <span class="version-badge">v1.0.0</span>
+                </div>
+                <p>
+                  Application IPTV pour regarder vos chaînes préférées en direct, en toute simplicité.
+                </p>
+                <ul class="feature-list">
+                  <li>Import M3U</li>
+                  <li>Lecteur vidéo fluide</li>
+                  <li>Chromecast</li>
+                  <li>Catégories de chaînes</li>
+                </ul>
+                <a
+                  href="https://example.com/melotv.apk"
+                  class="download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-download="Melo TV+"
+                >
+                  Télécharger APK
+                </a>
+              </div>
+            </article>
+
+            <article class="app-card sorcier">
+              <div class="app-visual">
+                <img src="images/le-sorcier.svg" alt="Illustration de l’application Le Sorcier" />
+              </div>
+              <div class="app-body">
+                <div class="app-topline">
+                  <h3>Le Sorcier</h3>
+                  <span class="version-badge">v1.0.0</span>
+                </div>
+                <p>
+                  Application de prédiction de matchs de football avec intelligence artificielle.
+                </p>
+                <ul class="feature-list">
+                  <li>Pronostics détaillés</li>
+                  <li>Analyse probabiliste</li>
+                  <li>Football live</li>
+                  <li>Suggestions rapides</li>
+                </ul>
+                <a
+                  href="https://example.com/lesorcier.apk"
+                  class="download-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-download="Le Sorcier"
+                >
+                  Télécharger APK
+                </a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="section section-alt">
+        <div class="container about-grid">
+          <div>
+            <p class="eyebrow">Pourquoi KADapks ?</p>
+            <h2>Un portail simple pour découvrir des expériences mobiles de qualité.</h2>
+            <p>
+              Nous proposons un accès direct à des applis utiles, modernes et pensées pour un public
+              engagé sur le web mobile. Notre objectif : rendre la découverte plus rapide, plus
+              visuelle et plus fiable.
+            </p>
+          </div>
+          <div class="about-points">
+            <div>⚡ Déploiement rapide</div>
+            <div>🔒 Liens sécurisés</div>
+            <div>📱 Expérience responsive</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact" class="site-footer">
+      <div class="container footer-row">
+        <div>
+          <h3>KADapks</h3>
+          <p>Votre espace de téléchargement Android, pensé pour l'innovation.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#top">Accueil</a>
+          <a href="#apps">Applications</a>
+          <a href="mailto:contact@kada-pks.com">Contact</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
