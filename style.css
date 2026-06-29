@@ -317,6 +317,12 @@ body.dark .hero-card__inner {
   background: linear-gradient(135deg, rgba(106, 27, 154, 0.12), rgba(106, 27, 154, 0.04));
 }
 
+.app-icon {
+  width: 100%;
+  max-width: 140px;
+  height: auto;
+}
+
 .app-card.melo .app-visual {
   background: linear-gradient(135deg, rgba(244, 123, 32, 0.16), rgba(244, 123, 32, 0.05));
 }
