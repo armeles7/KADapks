@@ -98,7 +98,7 @@
               <div class="app-body">
                 <div class="app-topline">
                   <h3>KoZons</h3>
-                  <span class="version-badge">v1.0.0</span>
+                  <span class="version-badge" id="version-badge-kozons">v1.0.0</span>
                 </div>
                 <p>
                   App sociale pan-africaine — <strong>"on parle, on écoute, on kiffe"</strong>.
@@ -128,7 +128,7 @@
               <div class="app-body">
                 <div class="app-topline">
                   <h3>Melo TV+</h3>
-                  <span class="version-badge">v1.0.0</span>
+                  <span class="version-badge" id="version-badge-melotv">v1.0.0</span>
                 </div>
                 <p>
                   Application IPTV pour regarder vos chaînes préférées en direct, en toute simplicité.
@@ -140,7 +140,7 @@
                   <li>Catégories de chaînes</li>
                 </ul>
                 <a
-                  href="https://github.com/armeles7/KADapks/releases/download/V2026.07.11-MeloTV/MeloTV2026.07.11.apk"
+                  href="https://github.com/armeles7/melotv-releases/releases/latest/download/MeloTV.apk"
                   class="download-btn"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -148,6 +148,7 @@
                 >
                   Télécharger APK
                 </a>
+                <p id="version-info-melotv" class="version-info" style="color:#888; font-size:0.85em; margin-top:8px;"></p>
               </div>
             </article>
 
@@ -223,5 +224,46 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <!-- Versions dynamiques depuis Supabase (mises à jour par les scripts PowerShell) -->
+    <script>
+      (function () {
+        const SUPABASE_URL = "https://iryxexlyjgfcvwrrloox.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_YvCyFGceRpdqnA-jqjOaCw_bHUrTc0d";
+
+        function chargerVersion(appName, badgeId, infoId) {
+          fetch(
+            SUPABASE_URL +
+              "/rest/v1/app_versions?app_name=eq." +
+              encodeURIComponent(appName) +
+              "&select=latest_version,updated_at",
+            {
+              headers: {
+                apikey: SUPABASE_KEY,
+                Authorization: "Bearer " + SUPABASE_KEY,
+              },
+            }
+          )
+            .then(function (r) { return r.json(); })
+            .then(function (d) {
+              if (d.length > 0 && d[0].latest_version) {
+                const badge = document.getElementById(badgeId);
+                if (badge) badge.textContent = "v" + d[0].latest_version;
+                if (infoId && d[0].updated_at) {
+                  const info = document.getElementById(infoId);
+                  if (info) {
+                    const dateMaj = new Date(d[0].updated_at).toLocaleDateString("fr-FR");
+                    info.textContent = "📦 Dernière version : " + d[0].latest_version + " (" + dateMaj + ")";
+                  }
+                }
+              }
+            })
+            .catch(function () { /* silencieux : les badges statiques restent affichés */ });
+        }
+
+        chargerVersion("Melo TV+", "version-badge-melotv", "version-info-melotv");
+        chargerVersion("KoZons", "version-badge-kozons", null);
+      })();
+    </script>
   </body>
 </html>
