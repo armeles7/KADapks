@@ -225,10 +225,7 @@
 
     <script src="script.js"></script>
 
-    <!-- Versions dynamiques : Supabase (Melo TV+) + Firebase Firestore (KoZons) -->
-    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"></script>
-    
+    <!-- Versions dynamiques : Supabase (Melo TV+) + Firestore REST API (KoZons) -->
     <script>
       // ========================================================================
       // SUPABASE - Melo TV+
@@ -264,59 +261,56 @@
                 }
               }
             })
-            .catch(function () { /* silencieux : les badges statiques restent affichés */ });
+            .catch(function () { /* silencieux */ });
         }
 
         chargerVersionSupabase("Melo TV+", "version-badge-melotv", "version-info-melotv");
       })();
 
       // ========================================================================
-      // FIREBASE FIRESTORE - KoZons
+      // FIRESTORE REST API - KoZons
       // ========================================================================
-      const firebaseConfig = {
-        apiKey: "AIzaSyAo4C7JdV56RP-1ym2vJLb792ZoQPDfmDcje",
-        authDomain: "kozons-69589.firebaseapp.com",
-        projectId: "kozons-69589",
-        storageBucket: "kozons-69589.appspot.com",
-        messagingSenderId: "551500429722",
-        appId: "1:551500429722:web:6f3e5c3d2a1b9c8d"
-      };
+      (function () {
+        const PROJECT_ID = "kozons-69589";
+        const FIRESTORE_API = "https://firestore.googleapis.com/v1/projects/" + PROJECT_ID + "/databases/(default)/documents";
 
-      firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore();
-
-      async function chargerVersionFirestore(documentId, badgeId, infoId) {
-        try {
-          const docRef = db.collection("app_versions").doc(documentId);
-          const docSnap = await docRef.get();
-          
-          if (docSnap.exists) {
-            const data = docSnap.data();
-            
-            // Mets à jour le badge
-            const badge = document.getElementById(badgeId);
-            if (badge && data.latestVersion) {
-              badge.textContent = "v" + data.latestVersion;
-            }
-            
-            // Mets à jour l'info si applicable
-            if (infoId && data.updatedAt) {
-              const info = document.getElementById(infoId);
-              if (info) {
-                const dateObj = new Date(data.updatedAt.toDate());
-                const dateMaj = dateObj.toLocaleDateString("fr-FR");
-                info.textContent = "📦 Dernière version : " + data.latestVersion + " (" + dateMaj + ")";
+        function chargerVersionFirestore(documentId, badgeId, infoId) {
+          fetch(FIRESTORE_API + "/app_versions/" + documentId)
+            .then(function (r) { return r.json(); })
+            .then(function (doc) {
+              if (doc.fields) {
+                const data = doc.fields;
+                
+                // Extraire la version
+                const latestVersion = data.latestVersion ? data.latestVersion.stringValue : null;
+                
+                // Mettre à jour le badge
+                const badge = document.getElementById(badgeId);
+                if (badge && latestVersion) {
+                  badge.textContent = "v" + latestVersion;
+                }
+                
+                // Mettre à jour l'info (si applicable)
+                if (infoId && data.updatedAt) {
+                  const info = document.getElementById(infoId);
+                  if (info && latestVersion) {
+                    const timestamp = data.updatedAt.timestampValue;
+                    const dateMaj = new Date(timestamp).toLocaleDateString("fr-FR");
+                    info.textContent = "📦 Dernière version : " + latestVersion + " (" + dateMaj + ")";
+                  }
+                }
               }
-            }
-          }
-        } catch (error) {
-          console.error("Erreur Firestore pour " + documentId + ":", error);
+            })
+            .catch(function (error) {
+              console.error("Erreur Firestore pour " + documentId + ":", error);
+            });
         }
-      }
 
-      document.addEventListener("DOMContentLoaded", function() {
-        chargerVersionFirestore("KoZons", "version-badge-kozons", null);
-      });
+        // Charge au chargement de la page
+        document.addEventListener("DOMContentLoaded", function() {
+          chargerVersionFirestore("KoZons", "version-badge-kozons", null);
+        });
+      })();
     </script>
   </body>
 </html>
