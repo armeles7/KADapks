@@ -225,13 +225,19 @@
 
     <script src="script.js"></script>
 
-    <!-- Versions dynamiques depuis Supabase (mises à jour par les scripts PowerShell) -->
+    <!-- Versions dynamiques : Supabase (Melo TV+) + Firebase Firestore (KoZons) -->
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js"></script>
+    
     <script>
+      // ========================================================================
+      // SUPABASE - Melo TV+
+      // ========================================================================
       (function () {
         const SUPABASE_URL = "https://iryxexlyjgfcvwrrloox.supabase.co";
         const SUPABASE_KEY = "sb_publishable_YvCyFGceRpdqnA-jqjOaCw_bHUrTc0d";
 
-        function chargerVersion(appName, badgeId, infoId) {
+        function chargerVersionSupabase(appName, badgeId, infoId) {
           fetch(
             SUPABASE_URL +
               "/rest/v1/app_versions?app_name=eq." +
@@ -261,9 +267,56 @@
             .catch(function () { /* silencieux : les badges statiques restent affichés */ });
         }
 
-        chargerVersion("Melo TV+", "version-badge-melotv", "version-info-melotv");
-        chargerVersion("KoZons", "version-badge-kozons", null);
+        chargerVersionSupabase("Melo TV+", "version-badge-melotv", "version-info-melotv");
       })();
+
+      // ========================================================================
+      // FIREBASE FIRESTORE - KoZons
+      // ========================================================================
+      const firebaseConfig = {
+        apiKey: "AIzaSyAo4C7JdV56RP-1ym2vJLb792ZoQPDfmDcje",
+        authDomain: "kozons-69589.firebaseapp.com",
+        projectId: "kozons-69589",
+        storageBucket: "kozons-69589.appspot.com",
+        messagingSenderId: "551500429722",
+        appId: "1:551500429722:web:6f3e5c3d2a1b9c8d"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      async function chargerVersionFirestore(documentId, badgeId, infoId) {
+        try {
+          const docRef = db.collection("app_versions").doc(documentId);
+          const docSnap = await docRef.get();
+          
+          if (docSnap.exists) {
+            const data = docSnap.data();
+            
+            // Mets à jour le badge
+            const badge = document.getElementById(badgeId);
+            if (badge && data.latestVersion) {
+              badge.textContent = "v" + data.latestVersion;
+            }
+            
+            // Mets à jour l'info si applicable
+            if (infoId && data.updatedAt) {
+              const info = document.getElementById(infoId);
+              if (info) {
+                const dateObj = new Date(data.updatedAt.toDate());
+                const dateMaj = dateObj.toLocaleDateString("fr-FR");
+                info.textContent = "📦 Dernière version : " + data.latestVersion + " (" + dateMaj + ")";
+              }
+            }
+          }
+        } catch (error) {
+          console.error("Erreur Firestore pour " + documentId + ":", error);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        chargerVersionFirestore("KoZons", "version-badge-kozons", null);
+      });
     </script>
   </body>
 </html>
